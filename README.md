@@ -133,6 +133,11 @@ docs/
   INTEGRATION.md caller setup (service binding + REST)
 ```
 
+## Contributing
+
+PRs welcome. CI (worker typecheck + relay build) must pass before merge. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
