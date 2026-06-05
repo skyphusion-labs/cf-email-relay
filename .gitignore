@@ -1,0 +1,16 @@
+# Worker
+node_modules/
+.wrangler/
+worker/worker-configuration.d.ts
+.dev.vars
+
+# Relay (Go)
+relay/cf-email-relay
+/relay/cf-email-relay
+*.test
+
+# Local env / secrets
+*.env
+!*.env.example
+*.log
+.DS_Store

@@ -1,0 +1,25 @@
+[Unit]
+Description=cf-email-relay SMTP-to-API relay
+Documentation=https://github.com/SkyPhusion/cf-email-relay
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/cf-email-relay.env
+ExecStart=/usr/local/bin/cf-email-relay
+Restart=on-failure
+RestartSec=5
+
+# The relay needs no persistent state. Lock it down.
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-email-relay",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-05",
+  "observability": { "enabled": true },
+
+  // Cloudflare Email Sending binding. Onboard your sending domain first:
+  //   npx wrangler email sending enable yourdomain.com
+  "send_email": [
+    { "name": "EMAIL" }
+  ],
+
+  "vars": {
+    // Used when a request omits `from`. Set to an address on a domain you have
+    // onboarded for Email Sending.
+    "DEFAULT_FROM": "noreply@example.com",
+    "DEFAULT_FROM_NAME": "",
+    // Optional: restrict the From domain. Leave empty to allow any onboarded
+    // sender domain (Cloudflare's onboarding is the real gate).
+    "ALLOWED_FROM_DOMAIN": ""
+  }
+
+  // RELAY_TOKEN is a secret, not a var:
+  //   npx wrangler secret put RELAY_TOKEN
+}
