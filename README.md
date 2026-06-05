@@ -1,5 +1,8 @@
 # cf-email-relay
 
+[![ci](https://github.com/SkyPhusion/cf-email-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/SkyPhusion/cf-email-relay/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Send transactional email through [Cloudflare Email
 Sending](https://developers.cloudflare.com/email-service/) from anywhere, two
 small pieces:
