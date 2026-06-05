@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Worker npm devDependencies (wrangler, typescript, workers-types).
+  - package-ecosystem: npm
+    directory: /worker
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # Relay Go modules.
+  - package-ecosystem: gomod
+    directory: /relay
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # The GitHub Actions used by CI.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

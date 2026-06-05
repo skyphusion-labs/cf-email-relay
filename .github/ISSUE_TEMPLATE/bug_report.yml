@@ -1,0 +1,37 @@
+name: Bug report
+description: Something isn't working as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please do **not** use this for security issues,
+        use private vulnerability reporting instead (Security tab).
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - worker
+        - relay
+        - docs
+        - not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you ran, what you expected, and what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: wrangler / Node / Go / OS versions, as relevant.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      render: shell
