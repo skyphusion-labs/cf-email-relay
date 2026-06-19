@@ -1,3 +1,5 @@
+> **Note:** cf-email-relay is superseded by [postern](https://github.com/skyphusion-labs/postern), email for humans and agents on Cloudflare Email. This repository is archived and read-only; see postern for the maintained successor.
+
 # cf-email-relay
 
 [![ci](https://github.com/SkyPhusion/cf-email-relay/actions/workflows/ci.yml/badge.svg)](https://github.com/SkyPhusion/cf-email-relay/actions/workflows/ci.yml)
@@ -7,19 +9,19 @@ Send transactional email through [Cloudflare Email
 Sending](https://developers.cloudflare.com/email-service/) from anywhere, two
 small pieces:
 
-- **`worker/`** — a Cloudflare Worker that sends mail via the `send_email`
+- **`worker/`** -- a Cloudflare Worker that sends mail via the `send_email`
   binding. It exposes an RPC entrypoint for same-account Workers (service
   binding, no token) and a token-gated public `POST /send` endpoint for
   everything else.
-- **`relay/`** — a tiny Go SMTP daemon. Cloudflare Email Sending has no SMTP
+- **`relay/`** -- a tiny Go SMTP daemon. Cloudflare Email Sending has no SMTP
   interface, so this bridges it: local services that can only speak SMTP (cron,
   backups, monitoring daemons, appliances) hand it a message and it relays to
   the worker's `/send` over HTTPS.
 
 ```
-your Worker  ──(service binding RPC: env.EMAIL.send)──┐
-                                                       ├──► worker ──► CF Email Sending ──► inbox
-SMTP-only services ──SMTP──► relay ──(HTTPS + Bearer)──┘
+your Worker  --(service binding RPC: env.EMAIL.send)--+
+                                                       +---> worker ---> CF Email Sending ---> inbox
+SMTP-only services --SMTP--> relay --(HTTPS + Bearer)--+
   (cron, backups,            (127.0.0.1:2525,
    monitoring, etc.)          systemd on the box)
 ```
@@ -44,10 +46,10 @@ npx wrangler email sending dns get yourdomain.com   # verify records landed
 
 Edit `worker/wrangler.jsonc` vars:
 
-- `DEFAULT_FROM` — address used when a request omits `from` (e.g.
+- `DEFAULT_FROM` -- address used when a request omits `from` (e.g.
   `noreply@yourdomain.com`).
-- `DEFAULT_FROM_NAME` — optional display name.
-- `ALLOWED_FROM_DOMAIN` — optional. If set, only From addresses on this domain
+- `DEFAULT_FROM_NAME` -- optional display name.
+- `ALLOWED_FROM_DOMAIN` -- optional. If set, only From addresses on this domain
   are accepted. Leave empty to allow any onboarded sender domain.
 
 ### Deploy
@@ -65,8 +67,8 @@ committed.
 
 ### Endpoints
 
-- `GET /` or `/health` — liveness, no auth.
-- `POST /send` — send mail. Requires `Authorization: Bearer <RELAY_TOKEN>`.
+- `GET /` or `/health` -- liveness, no auth.
+- `POST /send` -- send mail. Requires `Authorization: Bearer <RELAY_TOKEN>`.
 
 See [docs/INTEGRATION.md](docs/INTEGRATION.md) for the service binding setup, the
 request schema, and response/error codes.
@@ -114,7 +116,7 @@ gateway IP too (find it with `docker network inspect <net>`):
 SMTP_LISTEN=127.0.0.1:2525,172.18.0.1:2525
 ```
 
-Bind specific private IPs, never `0.0.0.0` — the relay sends as your domain, so
+Bind specific private IPs, never `0.0.0.0` -- the relay sends as your domain, so
 an externally reachable port is abusable. If a host firewall is in the way,
 allow only that bridge interface to the port.
 
